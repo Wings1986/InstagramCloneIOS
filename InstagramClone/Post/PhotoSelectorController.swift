@@ -48,14 +48,18 @@ class PhotoSelectorController: UICollectionViewController {
                 if (newStatus == PHAuthorizationStatus.authorized) {
                     self.fetchPhotos()
                 }else {
-                    print("no autho ==========")
+                    let alert = UIAlertController(title: "Photo Permission Needed", message: "You need to allow photo permissions in your device's Settings to use this feature", preferredStyle: .alert)
+
+                    //alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: nil))
+                    alert.addAction(UIAlertAction(title: "CLOSE", style: .cancel, handler: nil))
+
+                    self.present(alert, animated: true)
                 }
             })
         }
         
         // add spinner
         spinner.translatesAutoresizingMaskIntoConstraints = false
-        spinner.startAnimating()
         view.addSubview(spinner)
         spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
