@@ -35,6 +35,8 @@ class PhotoSelectorController: UICollectionViewController {
         refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
         collectionView?.refreshControl = refreshControl
         
+        
+        // checking permission
         //fetchPhotos()
         let status = PHPhotoLibrary.authorizationStatus()
 
@@ -51,6 +53,7 @@ class PhotoSelectorController: UICollectionViewController {
             })
         }
         
+        // add spinner
         spinner.translatesAutoresizingMaskIntoConstraints = false
         spinner.startAnimating()
         view.addSubview(spinner)
@@ -68,7 +71,8 @@ class PhotoSelectorController: UICollectionViewController {
     private func fetchPhotos() {
         let allPhotos = PHAsset.fetchAssets(with: .image, options: assetFetchOptions())
         print("allPhotos = \(allPhotos.count)")
-                
+        
+        // in main thread
         DispatchQueue.main.async {
             self.spinner.startAnimating();
             self.collectionView?.refreshControl?.beginRefreshing()
